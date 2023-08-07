@@ -2,7 +2,7 @@ import { NoteDto } from 'src/notes/dto/note.dto';
 
 export const typesTask = ['Task', 'Random Thought', 'Idea', 'Quotes'] as const;
 
-export const data: NoteDto[] = [
+export const mocked: NoteDto[] = [
   {
     id: '1z2ca9e2e03d12b326596bc4',
     createdAt: new Date(2022, 2, 15),
