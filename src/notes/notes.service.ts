@@ -3,10 +3,12 @@ import { NoteDto } from './dto/note.dto';
 import { mocked, typesTask } from 'src/data/data';
 import { generateRandomString } from 'src/utils/generateRandomId';
 import { CreateNoteDto } from './dto/create-note.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class NotesService {
   private readonly notes: NoteDto[] = mocked;
+  private readonly prisma: PrismaService;
 
   async createNote(dto: CreateNoteDto) {
     const note = {
@@ -66,12 +68,10 @@ export class NotesService {
   getStats() {
     const result = typesTask.map((type) => ({
       name: type,
-      archived: mocked
-        .filter((el) => el.category === type)
-        .filter((el) => el.archived).length,
-      active: mocked
-        .filter((el) => el.category === type)
-        .filter((el) => !el.archived).length,
+      archived: mocked.filter((el) => el.category === type && el.archived)
+        .length,
+      active: mocked.filter((el) => el.category === type && !el.archived)
+        .length,
     }));
     return result;
   }
